@@ -1,5 +1,0 @@
- git config --get-all user.name [57ms]
-git config --get-all user.email [55ms]
-git config --get commit.template [56ms]
-git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) --ignore-case refs/heads/main refs/remotes/main [60ms]
-git status -z -uall [58ms]
