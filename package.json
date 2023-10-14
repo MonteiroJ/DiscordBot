@@ -23,6 +23,7 @@
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^5.2.0",
     "fs": "^0.0.1-security",
+    "node-gyp": "^9.4.0",
     "ytdl-core": "^4.11.5"
   }
 }
