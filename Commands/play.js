@@ -20,9 +20,6 @@ module.exports = {
 
     async run(bot, message, args) {
         let song = args.getString('music');
-        console.log('------ SONG -----')
-        console.log(song, typeof String);
-        console.log(song)
 
         if (!message.member.voice.channel) 
             return message.reply('You need to be in a voice channel to use this command!');
@@ -33,8 +30,7 @@ module.exports = {
 
         const queue = await bot.player.nodes.create(message.guild, { metadata: {message: message}});
 
-        const track = await bot.player.search(song, {requestedBy: message.user, searchEngine: QueryType.YOUTUBE_VIDEO}).then(x => x.tracks[0]);
-        
+        const track = await bot.player.search(song).then(x => x.tracks[0]);
         console.log(track)
         if(!track) 
             return message.channel.send('No mucis found!');
