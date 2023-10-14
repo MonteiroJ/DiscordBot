@@ -1,4 +1,3 @@
-const { log } = require('console');
 const fs = require('fs');
 
 module.exports = async (bot, message) => {
@@ -11,10 +10,9 @@ module.exports = async (bot, message) => {
 
     if (message.author.bot) return;
     if(!message.content.startsWith(prefix)) return;
-    log('checking if command exists')
+
     let command = require(`../Commands/${commandName}.js`);
     if (!command) return message.reply('There is no message');
 
-    log('running command')
     command.run(bot, message, args);
 };

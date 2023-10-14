@@ -14,19 +14,14 @@ module.exports = async bot => {
             .setDescription(command.description)
             .setDMPermission(command.dm)
             .setDefaultMemberPermissions(command.permisson === 'None' ? null : command.permisson)
-        
-        if (command.options?.lenght >= 1) {
-            for (let i = 0; i < command.options.length; i++) {
-                slashCommand[`add${command.options[i].type.slice(0,1).toLowerCase() + command.options[i].type.slice(1, command.options[i].type.length)}Option`]
-                (option => option.setName(command.options[i].name).setDescription(command.options[i].description).setRequired(command.options[i].required).setChoices(command.options[i]))
-            }
-            /*
-            command.options.forEach(option => {
-                slashCommand.addStringOption(option);
-            });
-            */
-        }
+            
 
+        if (command.options?.length >= 1) {
+            for (let i = 0; i < command.options.length; i++) {
+                let commandType = command.options[i].type.slice(0, 1).toUpperCase() + command.options[i].type.slice(1, command.options[i].type.length).toLowerCase();                       
+                slashCommand[`add${commandType}Option`](option => option.setName(command.options[i].name).setDescription(command.options[i].description).setRequired(command.options[i].required))
+            }
+        }
         await commands.push(slashCommand);
     });
 

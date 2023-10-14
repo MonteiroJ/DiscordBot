@@ -6,12 +6,12 @@ module.exports = async (bot, interaction) => {
         
         let entry = interaction.options.getFocused();
         let choices = bot.commands.filters(cmd => cmd.name.includes(entry));
-        await interatction.respond(entry === '' ? bot.commands.map(cmd => ({name: cmd.name, value: cmd.name})) : choices.map(choice => ({name: choice.name, value: choice})));
+        await interatction.respond(entry === '' ? bot.commands.map(cmd => ({name: cmd.name, value: cmd.name})) : choices.map(choice => ({name: choice.name, value: choice.name})));
     }
 
     if (interaction.type === Discord.InteractionType.ApplicationCommand) {
 
         let command = require(`../Commands/${interaction.commandName}.js`);
-        command.run(bot, interaction, command.options);
+        command.run(bot, interaction, interaction.options);
     }
 };
