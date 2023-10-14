@@ -30,7 +30,15 @@ module.exports = {
 
         const queue = await bot.player.nodes.create(message.guild, { metadata: {message: message}});
 
-        const track = await bot.player.search(song).then(x => x.tracks[0]);
+        let track;
+        console.log(song);
+        if(this.isYoutubeLink(song)) {
+            track = await bot.player.search(song, {requestedBy: message.user, searchEngine: QueryType.YOUTUBE_VIDEO}).then(x => x.tracks[0]);
+        } else if (this.isSpotifyLink(song)) {
+            track = await bot.player.search(song, {requestedBy: message.user, searchEngine: QueryType.SPOTIFY_PLAYLIST}).then(x => x.tracks[0]);
+        } else {
+            track = await bot.player.search(song, {requestedBy: message.user}).then(x => x.tracks[0]);
+        }
         console.log(track)
         if(!track) 
             return message.channel.send('No mucis found!');
@@ -40,7 +48,17 @@ module.exports = {
         } 
         await queue.play(track);
 
-        message.followUp(`The music ${track.title} has been added to the queue!`);
+        message.followUp(`The music ${track.title} has been added to the queue by ${message.user} !`);
 
+    },
+
+    isYoutubeLink(song) {
+        console.log(`Youtube: ${song.includes('youtube.com')}`);
+        return song.includes('youtube.com');
+    },
+
+    isSpotifyLink(song) {
+        console.log(`Spotify: ${song.includes('spotify.com')}`);
+        return song.includes('spotify.com');
     }
 };
